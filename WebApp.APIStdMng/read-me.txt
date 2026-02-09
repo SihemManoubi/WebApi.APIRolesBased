@@ -1,0 +1,33 @@
+architecture clean
+dotnet core 8.0
+Gestion des rôles
+
+API REST
+
+GlobalExceptionMiddleware(throw au lieu de try catch)
+
+WebApp.CoreDomain :
+	*entities + dbcontext + interfaces repositories
+	*no reference
+
+WebApp.DALApplication : 
+	*Config(DbContextSettings)
+	*Injections(RepositoryInjectionModule)
+	*IRepository + Repository (IDbContextFactory + IRepositoryAsync)
+	* CArchi.Domain reference
+
+WebAppServiceInfrastructure : 
+	*Common : Mappings
+	*DTO
+	*IService + Service (IServiceAsync + other services)
+	*MyApp.Application reference
+
+WebApp.API : 
+	*Controllers + Mapping + Models + Utils + Views
+	*MyApp.Application & MyApp.Infrastructure 
+	
+/src
+ ├── WebApp.API                  → Controllers (HTTP, DTO, auth)
+ ├── WebApp.DALApplication       → Use cases, services métier
+ ├── WebApp.CoreDomain           → Entités, Value Objects, règles métier
+ ├── WebAppServiceInfrastructure → EF Core, Repositories, services externes
